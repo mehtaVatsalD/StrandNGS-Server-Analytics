@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>StrandNGS Server Analytics</title>
+	<link href="https://fonts.googleapis.com/css?family=Muli:400,700" rel="stylesheet">
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+
+    <link rel="stylesheet" href="vendor/fonts/css/font-awesome.min.css">
+
+	<script src="vendor/chartjs/Chart.bundle.min.js"></script>
+	<script src="vendor/chartjs/Chart.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/comman.js"></script>
+	<script src="js/config.js"></script>
+</head>
+<body onload="disableBack()">
+	<div class="container">
+		<div class="row header">
+			<div class="col-4">
+				<img src="extra/images/logo.png" class="ngslogo">
+			</div>
+			<div class="col-8">
+				<ul class="headerul">
+					<li onclick="window.open('help.html','_blank');">HELP</li>
+				</ul>
+			</div>
+		</div>
+		<div class="row body">
+			<div class="col-12 loginpanel">
+				<div class="loginBox">
+					<p class="notices"></p>
+					<div>
+						<form onsubmit="return checkLogin()" method="post">
+						<div class="inpDiv">
+							<i class="fa fa-user userIcon"></i><input type="text" id="uname" name="username" class="loginips" placeholder="Enter Username">
+						</div>
+						<div class="inpDiv">
+							<i class="fa fa-lock userIcon"></i><input type="password" id="pass" name="password" class="loginips" placeholder="Enter Password">
+						</div>
+						<div class="inpDiv">
+							<input type="submit" name="login" class="loginBtn" value="Login">
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

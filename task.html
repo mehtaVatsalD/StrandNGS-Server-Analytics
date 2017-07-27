@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>StrandNGS Server Analytics</title>
+	<link href="https://fonts.googleapis.com/css?family=Muli:400,700" rel="stylesheet">
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="vendor/jquery/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="vendor/fonts/css/font-awesome.min.css">
+
+	<script type="text/javascript" src="vendor/zlib.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/config.js"></script>
+	<script src="js/comman.js"></script>
+</head>
+<body onload="getLoggedUser();">
+
+<div class="emptyBack"></div>
+<div class="emptyResponse">
+<div class="row">
+	<div class="col-2"><i class="fa fa-info-circle alertIcon"></i></div>
+	<div class="col-10"><p class="alertMsg">Task Id Not Found!<br><span class="alertBody">Task with such Task Id is not found.Search for Valid Task-Id in above given Search Box</span></p></div>
+</div>
+</div>
+
+<div class="dropDownBack"></div>
+<div class="dropDown">
+	<ul>
+		<li onclick="logout()">Logout</li>
+		<li onclick="location.href='changePassword.html'">Change Password</li>
+	</ul>
+</div>
+<div class="container">
+	<div class="row header">
+		<div class="col-4">
+			<img src="extra/images/logo.png" class="ngslogo">
+		</div>
+		<div class="col-3">
+			<input type="text" name="searchTaskid" id="searchTaskid" placeholder="Search Task Id" onkeyup="enterHit(event)">
+			<button onclick="searchTaskid()" type="button" class="searchBtn"><i class="fa fa-search"></i></button>
+		</div>
+		<div class="col-5">
+			<ul class="headerul">
+				<!-- <li>HOME</li> -->
+				<li onclick="window.open('help.html','_blank');">HELP</li>
+				<li class="showUser">LOGOUT</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row body">
+		<div class="col-6" id="taskTableDiv">
+			<div id="taskInfoDiv">
+				<div class="headTab">
+					<span class="openCloseTask">Task Information</span>
+					<i class="fa fa-caret-right showHideCaret"></i>
+					<div id="taskInfo"></div>
+				</div>
+				<div class="headTab">
+					<span class="openCloseTool">Tool Information</span>
+					<i class="fa fa-caret-right showHideCaret"></i>
+					<div id="toolInfo"></div>
+				</div>
+				<div class="headTab">
+					<span class="openCloseSmaple">Samples' Information</span>
+					<i class="fa fa-caret-down showHideCaret"></i>
+					<div id="sampleInfo"></div>
+				</div>
+				<hr>
+			</div>
+		</div>
+		<div class="col-6" id="fileTextDiv">
+			<div class="row logTabs">
+				<!-- <div class="col-1"></div>
+				<div class="col-2 activeTab" id="logTab0"><h4>Summary</h4></div>
+				<div class="col-2" id="logTab1" oncontextmenu="return false;"><h4>Output Log</h4></div>
+				<div id="downloadStdout" class="col-1"><i class="fa fa-download"></i></div>
+				<div class="col-2" id="logTab2" oncontextmenu="return false;"><h4>Error Log&nbsp;&nbsp;</h4></div>
+				<div id="downloadStderr" class="col-1"><i class="fa fa-download"></i></div>
+				<div class="col-3"></div> -->
+				<div class="col-1"></div>
+				<div class="col-3 activeTab"><h4 id="logTab0">Summary</h4></div>
+				<div class="col-3">
+					<h4 id="logTab1">Output Log&nbsp;&nbsp;</h4><i id="downloadStdout" class="fa fa-download"></i>
+				</div>
+				<div class="col-3">
+					<h4 id="logTab2">Error Log&nbsp;&nbsp;</h4><i id="downloadStderr" class="fa fa-download"></i>
+				</div>
+				<div class="col-2"></div>
+			</div>
+			<div class="row logs">
+				<div class="col-12" id="logsBody">
+					<div><pre id="fileText"></pre></div>
+					<div id="summaryDiv"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$("#taskTableDiv").resizable({
+		handles : 'e',
+		minWidth :300,
+		maxWidth : 800,
+		// alsoResize : '#fileTextDiv',
+        create: function(e, ui) {
+            // Prefers an another cursor with two arrows
+            $(".ui-resizable-e").css("cursor","ew-resize");
+        },
+		resize: function(e, ui) {
+			var parentWidth = $("#taskTableDiv").parent().width();
+			var divWidth = ui.size.width;
+			console.log(parentWidth,divWidth);
+			$("#fileTextDiv").css('width',parentWidth - divWidth);
+		}
+	});
+	$(window).resize(function(){
+		var parentWidth = $("#taskTableDiv").parent().width();
+		var divWidth = $("#taskTableDiv").width();
+		$("#fileTextDiv").css('width',parentWidth - divWidth);
+	});
+
+
+</script>
+<script type="text/javascript" src="js/task.js"></script>
+</body>
+</html>

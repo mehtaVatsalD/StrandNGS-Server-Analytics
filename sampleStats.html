@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>StrandNGS Server Analytics</title>
+	<link href="https://fonts.googleapis.com/css?family=Muli:400,700" rel="stylesheet">
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+
+	<link rel="stylesheet" href="vendor/kendo/styles/kendo.common.min.css"/>
+    <link rel="stylesheet" href="vendor/kendo/styles/kendo.silver.min.css"/>
+    <link rel="stylesheet" href="vendor/fonts/css/font-awesome.min.css">
+    <script src="vendor/kendo/js/kendo.all.min.js"></script>
+
+	<script src="vendor/chartjs/Chart.bundle.min.js"></script>
+	<script src="vendor/chartjs/Chart.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/sampleStats.js"></script>
+	<script src="js/comman.js"></script>
+	<script src="js/config.js"></script>
+
+</head>
+<body onload="sampleReq()">
+<div class="hoverParent"></div>
+<div class="hoverClose">X</div>
+<div class="hoverMain">
+	<div id="hoverPlotParent">
+		<canvas id="hoverChart"></canvas>
+	</div>
+</div>
+
+<div class="emptyBack"></div>
+<div class="emptyResponse">
+<div class="row">
+	<div class="col-2"><i class="fa fa-info-circle alertIcon"></i></div>
+	<div class="col-10"><p class="alertMsg">Empty Response!<br><span class="alertBody">Data received was empty.So, unable to show plots.Try again Later</span></p></div>
+</div>
+</div>
+
+<div class="dethoverParent"></div>
+<div class="dethoverClose">X</div>
+<div class="detailDiv">
+	<h2 class="detailTitle">Hello World!</h2>
+	<h3 class="pointDetail"></h3>
+	<h4 class="pointDetail"></h4>
+	<span class="refreshbtn" onclick="selectElementContents(document.getElementsByClassName('detailTable')[0])">Copy To ClipBoard</span>
+	<!-- <span class="refreshbtn" onclick="copy2cb()">Select All</span> -->
+	<table class="detailTable" cellspacing="0" align="center">
+		<thead>
+			<tr class="headTable">
+				<th onclick="sortDetails('owner')" class="owner">Owner</th>
+				<th onclick="sortDetails('name')" class="name">Name</th>
+				<th onclick="sortDetails('createObj')" class="createObj">Creation Time</th>
+				<th onclick="sortDetails('size')" class="size">Size</th>
+				<th onclick="sortDetails('organism')" class="organism">Organism</th>
+				<th onclick="sortDetails('libLayout')" class="libLayout">Library Layout</th>
+				<th onclick="sortDetails('platform')" class="platform">Platform</th>
+				<th onclick="sortDetails('build')" class="build">Build</th>
+			</tr>
+		</thead>
+		<tbody class="detailTableBody"></tbody>
+	</table>
+</div>
+
+<div class="loadingDiv">
+	<img src="extra/images/loading2.gif" class="loadingImg">
+</div>
+<div class="dropDownBack"></div>
+<div class="dropDown">
+	<ul>
+		<li onclick="logout()">Logout</li>
+		<li onclick="location.href='changePassword.html'">Change Password</li>
+	</ul>
+</div>
+<div class="container">
+	<div class="row header">
+		<div class="col-4">
+			<img src="extra/images/logo.png" class="ngslogo">
+		</div>
+		<div class="col-8">
+			<ul class="headerul">
+				<!-- <li>HOME</li> -->
+				<li onclick="location.href='jobStats.html'">JOB STATS</li>
+				<li class="activeli">SAMPLE STATS</li>
+				<li class="showUser">LOGOUT</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row body">
+		<div class="col-2">
+			<div class="row">
+				<div class="col-12 refreshBack">
+					<a href="javascript:document.location.reload();"><span class="refreshbtn">Refresh</span></a>
+					<hr>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 filters">
+					<h2>Filters : </h2>
+					<div class="accardion" onclick="accardion(this,'.durationFil')">+</div><h3 class="filterTite">Duration : </h3>
+					<!-- <label for="pmonth"><input type="radio" name="duration" value="pmonth" onchange="showhide()">Past Month</label> -->
+					<div class="durationFil">
+						<label for="pquater"><input type="radio" name="duration" value="pquater" onchange="showhide();plots();">Past Quater</label>
+						<label for="pyear"><input type="radio" name="duration" value="pyear" onchange="showhide();plots();">Past Year</label>
+						<label for="ptwoyears"><input type="radio" name="duration" value="ptwoyears" onchange="showhide();plots();">Past Two Years</label>
+						<label for="pthreeyears"><input type="radio" name="duration" value="pthreeyears" onchange="showhide();plots();">Past Three Years</label>
+						<label for="all"><input type="radio" name="duration" checked value="all" onchange="showhide();plots();	">All</label>
+						<label for="range"><input type="radio" name="duration" id="rangeRadio" value="range" onchange="showhide()">Time Range</label>
+						<div id="datepickDiv">
+							<label for="from">From : <br><input id="datepicker1"></label>
+							<label for="to">To : <br><input id="datepicker2" ></label>
+							<div onclick="plots()">Submit</div>
+						</div>
+					</div>
+					<hr>
+					<div class="accardion" onclick="accardion(this,'.aggregationFil')">+</div><h3 class="filterTite">Aggregation : </h3>
+					<div class="aggregationFil">
+						<label for="monthly"><input type="radio" name="aggregation" value="monthly" onchange="plots()" checked>Monthly</label>
+						<label for="quaterly"><input type="radio" name="aggregation" value="quaterly" onchange="plots()">Quaterly</label>
+						<label for="yearly"><input type="radio" name="aggregation" value="yearly" onchange="plots()">Yearly</label>
+					</div>
+					<hr>
+					<div class="accardion" onclick="accardion(this,'.userFil')">+</div><h3 class="filterTite">Users : </h3>
+					<div class="userFil">
+						<input type="checkbox" onchange="checkUncheck(this,'user')" checked>	
+					</div>
+					<hr>
+					<div class="accardion" onclick="accardion(this,'.orgaFil')">+</div><h3 class="filterTite">Organisms : </h3>
+					<div class="orgaFil">
+						<input type="checkbox" onchange="checkUncheck(this,'organism')" checked>	
+					</div>
+					<hr>
+				</div>
+			</div>
+		</div>
+		<div class="col-10 dasboard">
+			<div class="row">
+				<div class="col-12 filterDetails">
+					<p id="filterDetailpara">Hold On! Plots are just getting ready.</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6 plots">
+				<h3 class="plotTitle">Number of Samples per User</h3>
+					<div id="plot9Parent">
+						<canvas id="myChart9" width="400" height="400"></canvas>
+					</div>		
+				</div>
+				<div class="col-6 plots">
+				<h3 class="plotTitle">Total Size of Samples per User</h3>
+					<div id="plot10Parent">
+						<canvas id="myChart10" width="400" height="400"></canvas>
+					</div>	
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-6 plots">
+				<h3 class="plotTitle">Monthly Plot for Number of Samples</h3>
+					<div id="plot11Parent">
+						<canvas id="myChart11" width="400" height="400"></canvas>
+					</div>		
+				</div>
+				<div class="col-6 plots">
+				<h3 class="plotTitle">Monthly Plot for Size of Samples</h3>
+					<div id="plot12Parent">
+						<canvas id="myChart12" width="400" height="400"></canvas>
+					</div>	
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-6 plots">
+				<h3 class="plotTitle">Relative Number of Samples Distributed Among Organisms</h3>
+					<div id="plot13Parent">
+						<canvas id="myChart13" width="400" height="400"></canvas>
+					</div>		
+				</div>
+				<div class="col-6 plots">
+				<h3 class="plotTitle">Relative Size of Samples Distributed Among Organisms</h3>
+					<div id="plot14Parent">
+						<canvas id="myChart14" width="400" height="400"></canvas>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

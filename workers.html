@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>StrandNGS Server Analytics</title>
+	<link href="https://fonts.googleapis.com/css?family=Muli:400,700" rel="stylesheet">
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+
+	<link rel="stylesheet" href="vendor/fonts/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/comman.js"></script>
+	<script src="js/config.js"></script>
+</head>
+<body onload="getWorkers()">
+
+<div class="container">
+	<div class="row header">
+		<div class="col-4">
+			<img src="extra/images/logo.png" class="ngslogo">
+		</div>
+		<div class="col-8">
+			<ul class="headerul">
+				<li onclick="window.open('help.html','_blank');">HELP</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-2 computeListParent">
+			<h3>Compute Workers : </h3>
+			<p class="infoWorking"><i class='fa fa-circle' style='color:#ff1100'></i> - BUSY</p>
+			<p class="infoWorking"><i class='fa fa-circle' style='color:#00ff0a'></i> - FREE</p>
+			<ul class="computeList">
+			</ul>
+		</div>
+		<div class="col-10 computeDetails"></div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>StrandNGS Server Analytics</title>
+	<link href="https://fonts.googleapis.com/css?family=Muli:400,700" rel="stylesheet">
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+
+	<link rel="stylesheet" href="vendor/kendo/styles/kendo.common.min.css"/>
+    <link rel="stylesheet" href="vendor/kendo/styles/kendo.silver.min.css"/>
+    
+    <link rel="stylesheet" href="vendor/fonts/css/font-awesome.min.css">
+    <script src="vendor/kendo/js/kendo.all.min.js"></script>
+
+	<script src="vendor/chartjs/Chart.bundle.min.js"></script>
+	<script src="vendor/chartjs/Chart.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/jobStats.js"></script>
+	<script src="js/comman.js"></script>
+	<script src="js/config.js"></script>
+
+</head>
+<body onload="xmlReq();">
+<div class="hoverParent"></div>
+<div class="hoverClose">X</div>
+<div class="hoverMain">
+	<div id="hoverPlotParent">
+		<canvas id="hoverChart"></canvas>
+	</div>
+</div>
+
+<div class="emptyBack"></div>
+<div class="emptyResponse">
+<div class="row">
+	<div class="col-2"><i class="fa fa-info-circle alertIcon"></i></div>
+	<div class="col-10"><p class="alertMsg">Empty Response!<br><span class="alertBody">Data received was empty.So, unable to show plots.Try again Later</span></p></div>
+</div>
+</div>
+
+<div class="dethoverParent"></div>
+<div class="dethoverClose">X</div>
+<div class="detailDiv">
+	<h2 class="detailTitle">Hello World!</h2>
+	<h3 class="pointDetail"></h3>
+	<span class="refreshbtn" onclick="selectElementContents(document.getElementsByClassName('detailTable')[0])">Copy To ClipBoard</span>
+	<!-- <span class="refreshbtn" onclick="copy2cb()">Select All</span> -->
+	<table class="detailTable" cellspacing="0" align="center">
+		<thead>
+			<tr class="headTable">
+				<th onclick="sortDetails('TaskID')" class="TaskID">Task ID</th>
+				<th onclick="sortDetails('TaskName')" class="TaskName">Task Name</th>
+				<th onclick="sortDetails('Owner')" class="Owner">Owner</th>
+				<th onclick="sortDetails('Context')" class="Context">Context Name</th>
+				<th onclick="sortDetails('WorkerIP')" class="WorkerIP">Worker IP</th>
+				<th onclick="sortDetails('SubTimeinms')" class="SubTimeinms">Submission Time</th>
+				<th onclick="sortDetails('WaitTime')" class="WaitTime">Wait Time(Mins.)</th>
+				<th onclick="sortDetails('ExeTime')" class="ExeTime">Exe. Time(Mins.)</th>
+				<th onclick="sortDetails('Status')" class="Status">Status</th>
+			</tr>
+		</thead>
+		<tbody class="detailTableBody"></tbody>
+	</table>
+</div>
+
+<div class="loadingDiv">
+	<img src="extra/images/loading2.gif" class="loadingImg">
+</div>
+<div class="dropDownBack"></div>
+<div class="dropDown">
+	<ul>
+		<li onclick="logout()">Logout</li>
+		<li onclick="location.href='changePassword.html'">Change Password</li>
+	</ul>
+</div>
+<div class="container">
+	<div class="row header">
+		<div class="col-4">
+			<img src="extra/images/logo.png" class="ngslogo">
+		</div>
+		<div class="col-8">
+			<ul class="headerul">
+				<!-- <li>HOME</li> -->
+				<li class="activeli">JOB STATS</li>
+				<li onclick="location.href='sampleStats.html'">SAMPLE STATS</li>
+				<li class="showUser">LOGOUT</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row body">
+		<div class="col-2">
+			<div class="row">
+				<div class="col-12 refreshBack">
+					<a href="javascript:document.location.reload();"><span class="refreshbtn">Refresh</span></a>
+					<hr>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12 filters">
+					<h2>Filters : </h2>
+					<div class="accardion" onclick="accardion(this,'.durationFil')">+</div><h3 class="filterTite">Duration : </h3>
+					<!-- <label for="pmonth"><input type="radio" name="duration" value="pmonth" onchange="showhide()">Past Month</label> -->
+					<div class="durationFil">
+						<label for="pquater"><input type="radio" name="duration" value="pquater" onchange="showhide();plots();">Past Quater</label>
+						<label for="pyear"><input type="radio" name="duration" value="pyear" onchange="showhide();plots();">Past Year</label>
+						<label for="ptwoyears"><input type="radio" name="duration" value="ptwoyears" onchange="showhide();plots();">Past Two Years</label>
+						<label for="pthreeyears"><input type="radio" name="duration" value="pthreeyears" onchange="showhide();plots();">Past Three Years</label>
+						<label for="all"><input type="radio" name="duration" checked value="all" onchange="showhide();plots();	">All</label>
+						<label for="range"><input type="radio" name="duration" id="rangeRadio" value="range" onchange="showhide()">Time Range</label>
+						<div id="datepickDiv">
+							<label for="from">From : <br><input id="datepicker1"></label>
+							<label for="to">To : <br><input id="datepicker2" ></label>
+							<div onclick="plots()" class="refreshbtn">Submit</div>
+						</div>
+					</div>
+					<hr>
+					<div class="accardion" onclick="accardion(this,'.aggregationFil')">+</div><h3 class="filterTite">Aggregation : </h3>
+					<div class="aggregationFil">
+						<label for="monthly"><input type="radio" name="aggregation" value="monthly" onchange="plots()" checked>Monthly</label>
+						<label for="quaterly"><input type="radio" name="aggregation" value="quaterly" onchange="plots()">Quaterly</label>
+						<label for="yearly"><input type="radio" name="aggregation" value="yearly" onchange="plots()">Yearly</label>
+					</div>
+					<hr>
+					<div class="accardion" onclick="accardion(this,'.contextFil')">+</div><h3 class="filterTite">Context : </h3>
+					<div class="contextFil">
+						<input type="checkbox" onchange="checkUncheck(this,'context')" checked>
+						<label for="alignment"><input type="checkbox" name="context" value="Alignment" onchange="plots()" checked>Alignment</label>
+						<label for="analysis"><input type="checkbox" name="context" value="Analysis" onchange="plots()" checked>Analysis</label>
+					</div>
+					<hr>
+					<div class="accardion" onclick="accardion(this,'.statusFil')">+</div><h3 class="filterTite">Status : </h3>
+					<div class="statusFil">
+						<input type="checkbox" onchange="checkUncheck(this,'status')" checked>
+						<label for="success"><input type="checkbox" name="status" value="Successful" onchange="plots()" checked>Successful</label>
+						<label for="fail"><input type="checkbox" name="status" value="Failed" onchange="plots()" checked>Failed</label>
+						<label for="terminated"><input type="checkbox" name="status" value="Terminated" onchange="plots()" checked>Terminated</label>
+						<label for="deleted"><input type="checkbox" name="status" value="Deleted" onchange="plots()" checked>Deleted</label>
+					</div>
+					<hr>
+					<div class="accardion" onclick="accardion(this,'.userFil')">+</div><h3 class="filterTite">Users : </h3>
+					<div class="userFil">
+						<input type="checkbox" onchange="checkUncheck(this,'user')" checked>	
+					</div>
+					<hr>
+					<div class="accardion" onclick="accardion(this,'.cnodeFil')">+</div>	<h3 class="filterTite">Compute Nodes : </h3>
+					<div class="cnodeFil">
+						<input type="checkbox" onchange="checkUncheck(this,'cnodes')" checked>	
+					</div>
+					<hr>
+				</div>
+			</div>
+		</div>
+		<div class="col-10 dasboard">
+			<div class="row">
+				<div class="col-12 filterDetails">
+					<p id="filterDetailpara">Hold On! Plots are just getting ready.</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6 plots">
+				<h3 class="plotTitle">Average Job Waiting Time</h3>
+					<div id="plot1Parent">
+						<canvas id="myChart1" width="400" height="400"></canvas>
+					</div>		
+				</div>
+				<div class="col-6 plots">
+				<h3 class="plotTitle">Compute Node Usage</h3>
+					<div id="plot2Parent">
+						<canvas id="myChart2" width="400" height="400"></canvas>
+					</div>	
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6 plots">
+					<h3 class="plotTitle">Context Plot</h3>
+					<div id="plot3Parent">
+						<canvas id="myChart3" width="400" height="400"></canvas>
+					</div>
+				</div>
+				<div class="col-6 plots">
+					<h3 class="plotTitle">Status Plot</h3>
+					<div id="plot4Parent">
+						<canvas id="myChart4" width="400" height="400"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6 plots">
+					<h3 class="plotTitle">Compute Usage by Users</h3>
+					<div id="plot5Parent">
+						<canvas id="myChart5" width="400" height="400"></canvas>
+					</div>
+				</div>
+				<div class="col-6 plots">
+					<h3 class="plotTitle">Total Time of Job for Different Users</h3>
+					<div id="plot6Parent">
+						<canvas id="myChart6" width="400" height="400"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-6 plots">
+					<h3 class="plotTitle">Wait Time Histogram</h3>
+					<div id="plot7Parent">
+						<canvas id="myChart7" width="400" height="400"></canvas>
+					</div>
+				</div>
+				<div class="col-6 plots">
+					<h3 class="plotTitle">Cumulative Wait Time Plot</h3>
+					<div id="plot8Parent">
+						<canvas id="myChart8" width="400" height="400"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

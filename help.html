@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>StrandNGS Server Analytics</title>
+	<link href="https://fonts.googleapis.com/css?family=Muli:400,700" rel="stylesheet">
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="vendor/jquery/jquery-ui.min.js"></script>
+
+	<link rel="stylesheet" href="vendor/fonts/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/comman.js"></script>
+	<script src="js/config.js"></script>
+</head>
+<body>
+<div class="container">
+	<div class="row header">
+		<div class="col-4">
+			<img src="extra/images/logo.png" class="ngslogo">
+		</div>
+		<div class="col-8"></div>
+	</div>
+	<div class="row document">
+		<div class="col-2 internalLinks">
+			<ul>
+				<li class="getStarted"><a href="#getStarted">Getting Started</a></li>
+				<li class="jobStats"><a href="#jobStats">JobSats</a></li>
+				<li class="sampleStats"><a href="#sampleStats">SampleStats</a></li>
+				<li class="filter"><a href="#filter">Filters</a></li>
+				<li class="jobStatFil"><a href="#jobStatFil">JobStat Filters</a></li>
+				<li class="sampleStatFil"><a href="#sampleStatFil">SampleStat Filters</a></li>
+				<li class="plotInfo"><a href="#plotInfo">Plot Info</a></li>
+				<li class="openDetails"><a href="#openDetails">Details of Plot</a></li>
+				<li class="sortDetails"><a href="#sortDetails">Sorting Details</a></li>
+				<li class="openLogs"><a href="#openLogs">Opening Logs</a></li>
+				<li class="cnodeDetails"><a href="#cnodeDetails">Compute Nodes</a></li>
+				<li class="changePassword"><a href="#changePassword">Change Password</a></li>
+				<li class="logout"><a href="#logout">Logout</a></li>
+			</ul>
+		</div>
+		<div class="col-10 doc">
+			<div id="getStarted">
+				<h1>Getting Started</h1>
+				<p>StrandNGS Server Analytics can be accessed from StrandNGS Manager.Open StrandNGS Manager and click on StrandNGS Server Analytics link given ( See Fig. 1.1 ).This will open new tab and will launch StrandNGS Server Analytics</p>
+				<img src="extra/images/docs/1.1.png" class="docImgs">
+				<span class="figno">Fig. 1.1 StrandNGS Manager</span>
+				<h2>Login</h2>
+				<p>StrandNGS Server Anlalytics opens in login page when its is lauched for first time.Following things are required to login<br><br>1)Username<br><br>2)Password.<br><br>Entering Correct Username and Password and logging ( See Fig. 1.2 ) in will redirect to Job-Statistics Page.</p>
+				<img src="extra/images/docs/1.2.png" class="docImgs">
+				<span class="figno">Fig. 1.2 StrandNGS Server Analytics Login Page</span>
+			</div>
+			<div id="jobStats">
+				<h1>Job Stats</h1>
+				<p>This page shows job statistics.This page is divided into Three parts.<br><br>1)Header - Contains Links to same Impotant pages and option for <a class="textLinks" href="#logout">Logout</a> and <a class="textLinks" href="#changePass">Change password</a><br><br>2)Filter's Panel - It hold many types of filters which can be selected to filter data and then to see plots<br><br>3)Dashboard - This part contains details about filters selected and eight different plots<br><br>&emsp;&emsp;1)Average Job Waiting Time<br><br>&emsp;&emsp;2)Compute Node Usage<br><br>&emsp;&emsp;3)Context Distribution Plot<br><br>&emsp;&emsp;4)Status Distribution Plot<br><br>&emsp;&emsp;5)Compute Usage by Users<br><br>&emsp;&emsp;6)Total Time of Job for Different Users<br><br>&emsp;&emsp;7)Wait Time Histogram<br><br>&emsp;&emsp;8)Cumulative Wait Time Plot<br><br>&emsp;&emsp;9)Task Distribution Plot</p>
+			</div>
+			<div id="sampleStats">
+				<h1>Sample Stats</h1>
+				<p>This page shows sample statistics.This page is divided into Three parts.<br><br>1)Header - Contains Links to same Impotant pages and option for <a class="textLinks" href="#logout">Logout</a> and <a class="textLinks" href="#changePassword">Change password</a><br><br>2)Filter's Panel - It hold many types of filters which can be selected to filter data and then to see plots<br><br>3)Dashboard - This part contains details about filters selected and six different plots<br><br>&emsp;&emsp;1)Number of Samples per User<br><br>&emsp;&emsp;2)Total Size of Samples per User<br><br>&emsp;&emsp;3)Monthly Plot for Number of Samples<br><br>&emsp;&emsp;4)Monthly Plot for Size of Samples<br><br>&emsp;&emsp;5)Relative Number of Samples Distributed Among Organisms<br><br>&emsp;&emsp;6)Relative Size of Samples Distributed Among Organisms
+			</div>
+			<div id="filter">
+				<h1>Filters</h1>
+				<p>Filter panel could be found on right side of both jobStats and sampleStats page.This is used to filter data according to need and plot all graphs for that data or to manipulate view of graph.For e.g. To see plots for specific user group, To change monthly plot to quaterly or yearly plot and lot more.Filter options are hidden by defaults.On clicking plus sign besides filter name options appear.Then can be hidden again by clicking minus button ( See Fig. 1.3 and Fig. 1.4) .As soon as any filter is changed, plots get updated (except for time range filter in duration ).One refresh button is available at top of filter panel to refresh plots.</p>
+				<div class="docImgs2Div">
+					<img src="extra/images/docs/1.3.png" class="docImgs2">
+					<!-- <span class="figno">Fig. 1.3 Filter Panel (of JobStats)</span> -->
+					<img src="extra/images/docs/1.4.png" class="docImgs2">
+				</div>
+				<span class="figno">Fig. 1.3 & Fig. 1.4 Filter Panel (of JobStats)</span>
+				<p>For filters having checkbox list select all and clear all option is available.Checking first checkbox in list will select all options under that filter while unchecking that will deselsect all ( See Fig. 1.5 and Fig. 1.6 )</p>
+				<div class="docImgs2Div">
+					<img src="extra/images/docs/1.5.png" style="width: 200px;">
+					<!-- <span class="figno">Fig. 1.3 Filter Panel (of JobStats)</span> -->
+					<img src="extra/images/docs/1.6.png" style="width: 200px;">
+				</div>
+				<span class="figno">Fig. 1.3 & Fig. 1.4 Select/Clear all functionality in Filter Panel (of JobStats)</span>
+			</div>
+			<div id="jobStatFil">
+				<h1>Filters Available in JobStats Page</h1>
+				<p id="jobDuration">1)<b>Duration</b> : This filter is to filter data in some specific time range or to see plots in specific time range.<br>
+				Options Available under Duration Filter are : 
+				<ol>
+					<li>Past-Quater : To see plots for past quater year</li>
+					<li>Past-Year : To see plots for past year</li>
+					<li>Past-Two-Years : To see plots for past two year</li>
+					<li>Past-Three-Years : To see plots for past three year</li>
+					<li>All : To see plots for All Data <span style="color: blue">( Default )<span> </li>
+					<li>Time-Range : Select Time range according to usecase</li>
+				</ol></p>
+				<p>On clicking time range option two inputs with datepicker will be shown.First is for Starting time and second for End Time.Then click submit button to update plots ( See Fig. 1.7 )</p>
+				<img src="extra/images/docs/1.7.png" style="display: block;margin: 0 auto;">
+				<span class="figno">Fig. 1.7 TIme Range inputs with date picker</span>
+
+				<p>2)<b>Aggregation</b> : As name suggests this filter is to change aggregation of data.<br>
+				Options Available under Aggregation Filter are : 
+				<ol>
+					<li>Monthly : To see plots per month <span style="color: blue">( Default )<span> </li>
+					<li>Quaterly : To see plots per quater year</li>
+					<li>Yearly  : To see plots per year</li>
+				</ol></p>
+
+				<p>3)<b>Context</b> : This filter is to see plots for some context of jobs	<br>
+				Options Available under Context Filter are <span style="color: blue;font-size: 15px">( All Checked by Default )<span>  : 
+				<ol>
+					<li>Alignment : To include alignment job data for plotting</li>
+					<li>Analysis : To include analysis job data for plotting</li>
+				</ol></p>
+
+				<p>4)<b>Status</b> : This filter is to see plots for jobs with specific status	<br>
+				Options Available under Status Filter are <span style="color: blue;font-size: 15px">( All Checked by Default )<span>  : 
+				<ol>
+					<li>Successful : To include successful job data for plotting</li>
+					<li>Failed : To include failed job data for plotting</li>
+					<li>Terminated : To include terminated job data for plotting</li>
+					<li>Deleted : To include deleted job data for plotting</li>
+				</ol></p>
+
+				<p>5)<b>Task Name</b> : This filter is to see plots for jobs with specific task name<br>
+				Options Available under Task Name Filter are <span style="color: blue;font-size: 15px">( All Checked by Default )<span>  : 
+				<ol>
+					<li>Names of all <strong>TsoT1</strong> tasks</li>
+					<li>Other : This mean remaining all other tasks</li>
+					
+				</ol></p>
+
+				<p>6)<b>Users</b> : This filter is to see plots for specific group of users<br>
+				Options Available under Users Filter are <span style="color: blue;font-size: 15px">( All Checked by Default )<span>  : 
+				<ul>
+					<li>Names of different users</li>
+				</ul>
+
+				<p>7)<b>Compute Node</b> : This filter is to see plots for specific compute node data<br>
+				Options Available under Aggregation Filter are <span style="color: blue;font-size: 15px">( All Checked by Default )<span>  : 
+				<ul>
+					<li>IP adress of different compute nodes</li>
+				</ul>
+			</div>
+			<div id="sampleStatFil">
+				<h1>Filters Available in SampleStats Page</h1>
+				<p>1)<b>Duration</b> : Same as <a href="#jobStatFil" class="textLinks">JobStats Duration Filter</a><br>
+				<p>2)<b>Aggregation</b> : Same as <a href="#jobStatFil" class="textLinks">JobStats Aggregation Filter</a><br>
+				<p>3)<b>Users</b> : Same as <a href="#jobStatFil" class="textLinks">JobStats Users Filter</a><br>
+				<p>4)<b>organisms</b> : This filter is to see plots for specific group of organisms<br>
+				Options Available under Aggregation Filter are <span style="color: blue;font-size: 15px">( All Checked by Default )<span>  : 
+				<ul>
+					<li>Names of different organisms</li>
+				</ul>
+			</div>
+			<div id="plotInfo">
+				<h1>General Information About Plots</h1>
+				<p>Hovering over any part of pie chart, any point in line chart and any bar in bar chart shows tooltip.This tooltip shows relavant information about that part, point or bar in plot.(<strong>Note : </strong>No. of jobs in some tooltips of jobStats mean total that number of jobs contribute over there and No. of smaples in some tooltips of sampleStats mean total that number of sample contribute over there.)</p>
+				<p>Clicking on any plots open a popup and shows enlarged plot ( See Fig. 1.8 ) which can be closed by cross button on top right corner, clicking on black portion outside pop up or pressing Esc key.</p>
+				<img src="extra/images/docs/1.8.png" class="docImgs">
+				<span class="figno">Fig. 1.8 Enlarged Plot</span>
+				<p>Clicking on parameter value at the top of the plot toggles that parameter in the plot i.e. on clicking once it will remove and on again clicking it will include that paramter agin in the plot ( See Fig. 1.9 ).It is one kind of instant filter for that plot.</p>
+				<img src="extra/images/docs/1.9.png" class="docImgs">
+				<span class="figno">Fig. 1.9 Toggling Parameter in Plot</span>
+			</div>
+			<div id="openDetails">
+				<h1>Getting Details of Point, Bar or Part of Plot : </h1>
+				<p>Clicking on any point, bar or part in <strong>Enlarged Plot</strong> will open new popup.This popup shows all the details of jobs or sample that contributed to that portion of plot.( See Fig 2.0 and Fig. 2.1 ).It shows Title of plot, Name of portion whose details are shown, total number of records displayed, table of details and button to copy whole table to clipboard.</p>
+				<img src="extra/images/docs/2.0.png" class="docImgs">
+				<span class="figno">Fig. 2.0 Details of Some Portion of JobStat Plot</span>
+				<img src="extra/images/docs/2.1.png" class="docImgs">
+				<span class="figno">Fig. 2.1 Details of Some Portion of SampleStat Plot</span>
+			</div>
+			<div id="sortDetails">
+				<h1>Sorting Details of Plot</h1>
+				<p>
+					For sorting details inside table click on any header of table.This will sort entire table on the basis of that header.For e.g.1) By clicking on wait time will sort table on the basis of wait time. 2) By clicking on task name will sort table on basis of task name.<br>This type of thing can be done for all headers in that table.
+				</p>
+				<p>Here 2 types of sorting functionalities are available.Clicking once on any header will sort table in ascending order, clicking second time will sort table in descending order while clicking third time will reset table and so on.( See Fig. 2.2, Fig. 2.3 and Fig 2.4 )</p>
+				<img src="extra/images/docs/2.2.png" class="docImgs">
+				<span class="figno">Fig. 2.2 Table Sorted in Ascending Order on the Basis of Submission time</span>
+				<img src="extra/images/docs/2.3.png" class="docImgs">
+				<span class="figno">Fig. 2.3 Table Sorted in Ascending Order on the Basis of Submission time</span>
+				<img src="extra/images/docs/2.4.png" class="docImgs">
+				<span class="figno">Fig. 2.4 Table in Default Order</span>
+			</div>
+			<div id="openLogs">
+				<h1>Opening Logs of Task : </h1>
+				<p>Click on Task-Id in details popup to see log files and other related information of this task(job).By doing this new tab will be opened.( See Fig. 2.5 )</p>
+				<p>This page is divided horizontally in two parts.Partitions can be resized by dragging from middle.left lide partitions shows : 
+				<ol>
+					<li>Task Information (Collapsed By Default)</li>
+					<li>Tool Information (Collapsed By Default)</li>
+					<li>( if present in log file) Sample Information (Shown By Default)</li>
+				</ol></p>
+				<p>While right side partitions has three tabs : 
+				<ol>
+					<li>Summary of Task</li>
+					<li>StdOutput File</li>
+					<li>StdError File</li>
+				</ol></p>
+				<p>StdOut tab and StdErr tab on right has option to download respective files.</p>
+				<img src="extra/images/docs/2.5.png" class="docImgs">
+				<span class="figno">Fig. 2.5 Logs and Related Information of Job with TaskId : 1498207894791</span>
+				<p>Here at the top of page there is functionality to search jobs with their taskId.Search for taskId there and if it is valid then all information of that task will be shown else message with not valid taskId will be shown</p>
+			</div>
+			<div id="cnodeDetails">
+				<h1>Details of Working Compute Nodes</h1>
+				<p>To see details about working compute nodes open StrandNGS Manager ( See Fig. 1.1 ).Open link Compute Node Details provided there.This will open new tab showing details about currently working compute nodes.( See Fig. 2.6)</p>
+				<p>On left side there is list of currently working compute nodes' ip address with their status ( currently working or free ).Green symbol shows compute node is free now while red symbol shows that it is busy.Clicking on ip address in the list shows details of that compute node on left side of page</p>
+				<img src="extra/images/docs/2.6.png" class="docImgs">
+				<span class="figno">Fig. 2.6 Compute Node Details Page </span>
+			</div>
+			<div id="changePassword">
+				<h1>Change Password</h1>
+				<p>After Logging in top right portion of app shows username.Click on that username which will open one drop down( See Fig. 2.6 ).It shows change password option.Click on Change Password which will take to new page for changing password ( See Fig. 2.7 ).</p>
+				<img src="extra/images/docs/2.7.png" style="display: block;margin: 0 auto;">
+				<span class="figno">Fig. 2.7 DropDown</span>
+				<p>Enter Old Password ( Obviously Correct One! ), New Password of your wish, Confirm it and hit Change Password.If old password is correct and new password is confirmed correctly then you would be logged out and redirected to login page, which mean password is changed.Now, login with new password.</p>
+				<p>In between you change your mind and don't want to change password, clcik on cancel and you will be redirected to previous page.</p>
+				<img src="extra/images/docs/2.8.png" class="docImgs">
+				<span class="figno">Fig. 2.8 Change Password Page </span>
+			</div>
+			<div id="logout">
+				<h1>Logging Out</h1>
+				<p>After Logging in top right portion of app shows username.Click on that username which will open one drop down( See Fig. 2.7 ).It shows logout option.Click on it to logout</p>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
